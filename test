@@ -1,0 +1,16 @@
+Java
+@SpringBootTest
+class AppointmentServiceTest {
+
+ @Autowired
+ AppointmentService service;
+
+ @Test
+ void createAppointment(){
+
+  Appointment a = new Appointment();
+
+  assertNotNull(
+          service.create(a));
+ }
+}
