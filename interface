@@ -1,0 +1,34 @@
+@Entity
+public class Doctor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    private String specialization;
+
+    private String availability;
+}
+3. Appointment Entity
+Java
+@Entity
+public class Appointment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private User patient;
+
+    @ManyToOne
+    private Doctor doctor;
+
+    private LocalDate appointmentDate;
+
+    private LocalTime appointmentTime;
+
+    private String status;
+}
