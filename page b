@@ -1,0 +1,40 @@
+JSX
+import axios from "axios";
+import { useState } from "react";
+
+function AppointmentBooking(){
+
+ const [doctor,setDoctor]=useState("");
+ const [date,setDate]=useState("");
+
+ const book = async () => {
+
+   await axios.post(
+      "/api/appointments",
+      {
+        doctor,
+        appointmentDate:date
+      });
+
+   alert("Booked Successfully");
+ };
+
+ return (
+   <div>
+     <input
+       onChange={(e)=>setDoctor(e.target.value)}
+     />
+
+     <input
+       type="date"
+       onChange={(e)=>setDate(e.target.value)}
+     />
+
+     <button onClick={book}>
+        Book
+     </button>
+   </div>
+ );
+}
+
+export default AppointmentBooking;
