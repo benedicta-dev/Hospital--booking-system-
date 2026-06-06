@@ -1,0 +1,34 @@
+@Repository
+public interface AppointmentRepository
+        extends JpaRepository<Appointment, Long> {
+
+    boolean existsByDoctorAndAppointmentDateAndAppointmentTime(
+            Doctor doctor,
+            LocalDate date,
+            LocalTime time);
+}
+5. Appointment Service
+Java
+@Service
+@RequiredArgsConstructor
+public class AppointmentService {
+
+    private final AppointmentRepository repository;
+
+    public Appointment create(Appointment appointment){
+
+        boolean exists =
+                repository.existsByDoctorAndAppointmentDateAndAppointmentTime(
+                        appointment.getDoctor(),
+                        appointment.getAppointmentDate(),
+                        appointment.getAppointmentTime());
+
+        if(exists){
+            throw new RuntimeException("Slot already booked");
+        }
+
+        appointment.setStatus("BOOKED");
+
+        return repository.save(appointment);
+    }
+}
